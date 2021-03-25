@@ -97,12 +97,12 @@
 
 .key {
   color: black;
-  opacity: 50%;
+  opacity: 0.5;
 }
 
 .valid,
 .invalid {
-  opacity: 100%;
+  opacity: 1;
 }
 
 .valid {
