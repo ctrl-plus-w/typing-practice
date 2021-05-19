@@ -165,6 +165,11 @@ class App extends React.Component {
     this.generateSequence();
   }
 
+  getErrors() {
+    const errors = Math.round((this.state.failedKeys / this.state.totalKeys) * 100);
+    return isNaN(errors) ? 0 : errors;
+  }
+
   render() {
     // TODO : Patch NaN error percentage.
 
@@ -172,7 +177,7 @@ class App extends React.Component {
       <div className='container'>
         <div className='config'>
           <div className='counters'>
-            <p>Errors : {Math.round((this.state.failedKeys / this.state.totalKeys) * 100)}%</p>
+            <p>Errors : {this.getErrors()}%</p>
             <p>Total : {this.state.totalKeys}</p>
           </div>
           <div className='char-picker'>
@@ -193,9 +198,10 @@ class App extends React.Component {
             </button>
           </div>
         </div>
+
         <div className='text-progression'>
           {this.state.doneKeys.map((keyClass, i) => keyClass.element)}
-          {this.state.expectedKeys.map((keyClass, i) => keyClass.element)}
+          {this.state.expectedKeys.map((keyClass) => keyClass.element)}
         </div>
         <p type='text' className='text-input' contentEditable={true} suppressContentEditableWarning={true} onKeyPress={this.handleInputChange}></p>
       </div>
