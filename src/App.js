@@ -1,6 +1,8 @@
 import './App.css';
 import React from 'react';
 
+import Keyboard from './components/Keyboard';
+
 import { v4 as uuid } from 'uuid';
 
 import { getRandomInt } from './utils';
@@ -204,6 +206,7 @@ class App extends React.Component {
           {this.state.expectedKeys.map((keyClass) => keyClass.element)}
         </div>
         <p type='text' className='text-input' contentEditable={true} suppressContentEditableWarning={true} onKeyPress={this.handleInputChange}></p>
+        <Keyboard />
       </div>
     );
   }
