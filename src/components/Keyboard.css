@@ -49,6 +49,12 @@
   z-index: 8;
 
   background: linear-gradient(104.74deg, #cccccc -47.49%, #e3e3e3 111.91%);
+
+  transition: all 50ms ease-in-out;
+}
+
+.row .key.down::after {
+  top: var(--offset);
 }
 
 .row:not(:first-child) .key {
@@ -67,6 +73,12 @@
   left: 50%;
 
   transform: translate(-50%, -50%);
+
+  transition: all 50ms ease-in-out;
+}
+
+.row .key.down .content {
+  top: calc(50% + var(--offset));
 }
 
 .row .key .content {

@@ -20,7 +20,7 @@ const Keyboard = () => {
         <Key content='0' />
         <Key content=')' />
         <Key content='=' />
-        <Key content='Del' type='del' />
+        <Key content='Del' type='del' keyName='Backspace' />
       </div>
 
       <div className='row'>
@@ -73,11 +73,11 @@ const Keyboard = () => {
       </div>
 
       <div className='row'>
-        <Key content='Ctrl' type='ctrl' />
-        <Key content='Alt' type='alt' />
-        <Key content='-' type='space' />
-        <Key content='Alt Gr' type='alt-gr' />
-        <Key content='Ctrl' type='ctrl' />
+        <Key content='Ctrl' type='ctrl' keyName='Control' />
+        <Key content='Alt' type='alt' keyName='Alt' />
+        <Key content='-' type='space' keyName=' ' />
+        <Key content='Alt Gr' type='alt-gr' keyName='Alt Gr' />
+        <Key content='Ctrl' type='ctrl' keyName='Control' />
       </div>
     </div>
   );
