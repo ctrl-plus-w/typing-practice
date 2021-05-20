@@ -22,6 +22,8 @@
   height: var(--size);
 
   flex-shrink: 0;
+
+  cursor: pointer;
 }
 
 .row .key::before,
@@ -43,6 +45,11 @@
   top: var(--offset);
 
   background: #bdbdbd;
+  transition: background 0.2s ease-in-out;
+}
+
+.row .key.disabled::before {
+  background: #d4d4d4;
 }
 
 .row .key::after {
@@ -50,7 +57,11 @@
 
   background: linear-gradient(104.74deg, #cccccc -47.49%, #e3e3e3 111.91%);
 
-  transition: all 50ms ease-in-out;
+  transition: top 50ms ease-in-out, background 0.2s ease-in-out;
+}
+
+.row .key.disabled::after {
+  background: linear-gradient(104.74deg, #d4d4d4 -47.49%, #ebebeb 111.91%);
 }
 
 .row .key.down::after {
@@ -72,9 +83,16 @@
   top: 50%;
   left: 50%;
 
+  color: black;
+  user-select: none;
+
   transform: translate(-50%, -50%);
 
-  transition: all 50ms ease-in-out;
+  transition: top 50ms ease-in-out, background 0.2s ease-in-out;
+}
+
+.row .key.disabled .content {
+  color: rgb(165, 165, 165);
 }
 
 .row .key.down .content {

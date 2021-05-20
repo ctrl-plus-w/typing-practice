@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 
 import Keyboard from './components/Keyboard';
 
+import keysContext from './context/keys';
+
 import { v4 as uuid } from 'uuid';
 
 import { getRandomInt } from './utils';
@@ -62,7 +64,7 @@ class Space extends Key {
 }
 
 const App = () => {
-  const [validKeys] = useState(['q', 's', 'd', 'f', 'j', 'k', 'l', 'm']);
+  const [validKeys, setValidKeys] = useState(['q', 's', 'd', 'f', 'j', 'k', 'l', 'm']);
   const [focused, setFocused] = useState(false);
 
   const [doneKeys, setDoneKeys] = useState([]);
@@ -75,6 +77,12 @@ const App = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    generateSequence();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [validKeys]);
 
   const generateSequence = () => {
     const rowSize = 4;
@@ -128,22 +136,24 @@ const App = () => {
   };
 
   return (
-    <div className='container'>
-      <div>
-        <div className={`text-progression ${focused ? 'active' : ''}`}>
-          <input type='text' className='text-input' onKeyPress={handleInputChange} onFocus={focus} onBlur={blur} />
+    <keysContext.Provider value={{ validKeys, setValidKeys }}>
+      <div className='container'>
+        <div>
+          <div className={`text-progression ${focused ? 'active' : ''}`}>
+            <input type='text' className='text-input' onKeyPress={handleInputChange} onFocus={focus} onBlur={blur} />
 
-          <p>
-            {doneKeys.map((keyClass) => keyClass.element)}
-            {expectedKeys.map((keyClass) => keyClass.element)}
-          </p>
+            <p>
+              {doneKeys.map((keyClass) => keyClass.element)}
+              {expectedKeys.map((keyClass) => keyClass.element)}
+            </p>
 
-          <p>{getErrors()}%</p>
+            <p>{getErrors()}%</p>
+          </div>
+
+          <Keyboard />
         </div>
-
-        <Keyboard />
       </div>
-    </div>
+    </keysContext.Provider>
   );
 };
 
