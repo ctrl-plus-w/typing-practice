@@ -21,8 +21,7 @@
   height: auto;
 }
 
-.counters,
-.char-picker {
+.counters {
   display: flex;
   flex-direction: column;
 
@@ -40,75 +39,65 @@
   margin-bottom: 1rem;
 }
 
-.char-picker {
-  display: flex;
-  flex-direction: row;
-
-  flex-wrap: wrap;
-  height: auto;
-}
-
-.char-picker div {
-  width: 50%;
-}
-
-.char-picker button {
-  width: 100%;
-
-  margin-top: 1rem;
-
-  padding: 0.4rem 0;
-
-  font-size: 1rem;
-
-  background: rgb(55, 131, 231);
-  color: white;
-
-  border: none;
-  border-radius: 0.4rem;
-
-  cursor: pointer;
-}
-
-.char-picker div input {
-  margin-right: 0.5rem;
-}
-
 .text-input,
 .text-progression {
   font-family: 'Roboto Mono', monospace;
 }
 
 .text-input {
-  width: 13rem;
+  all: unset;
 
-  margin-top: 1rem;
-  padding: 0.5rem 0.6rem;
+  position: absolute;
+  top: 0;
+  left: 0;
 
-  text-align: center;
+  width: 100%;
+  height: 100%;
 
-  border: 1px solid rgb(145, 145, 145);
-  border-radius: 0.4rem;
+  color: transparent;
 }
 
 .text-input:focus {
   border-color: rgb(55, 131, 231);
 }
 
+.text-progression {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 1rem 1.5rem;
+
+  margin-bottom: 3rem;
+
+  color: rgb(78, 78, 78);
+  border: 1px solid #cccccc;
+
+  filter: grayscale(0.3) opacity(0.5);
+
+  transition: all 0.2s ease-in-out;
+}
+
+.text-progression.active {
+  filter: none;
+}
+
 .text-progression .key {
   color: black;
   opacity: 0.5;
+  pointer-events: none;
 }
 
-.valid,
-.invalid {
+.text-progression .key.valid,
+.text-progression .key.invalid {
   opacity: 1;
 }
 
-.valid {
+.text-progression .key.valid {
   color: #1ece35;
 }
 
-.invalid {
+.text-progression .key.invalid {
   color: #d62828;
 }

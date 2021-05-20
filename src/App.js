@@ -63,41 +63,16 @@ class Space extends Key {
 
 const initialState = {
   validKeys: ['q', 's', 'd', 'f', 'j', 'k', 'l', 'm'],
+
+  focused: false,
+
   doneKeys: [],
   expectedKeys: [],
+
   totalKeys: 0,
   failedKeys: 0,
   passedKeys: 0,
 };
-
-const LETTER_ARRAY = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-  'P',
-  'Q',
-  'R',
-  'S',
-  'T',
-  'U',
-  'V',
-  'W',
-  'X',
-  'Y',
-  'Z',
-];
 
 class App extends React.Component {
   constructor() {
@@ -172,41 +147,41 @@ class App extends React.Component {
     return isNaN(errors) ? 0 : errors;
   }
 
-  render() {
-    // TODO : Patch NaN error percentage.
+  focus() {
+    this.setState({
+      focused: true,
+    });
+  }
 
+  blur() {
+    this.setState({
+      focused: false,
+    });
+  }
+
+  render() {
     return (
       <div className='container'>
-        <div className='config'>
-          <div className='counters'>
-            <p>Errors : {this.getErrors()}%</p>
-            <p>Total : {this.state.totalKeys}</p>
-          </div>
-          <div className='char-picker'>
-            {LETTER_ARRAY.map((letter) => {
-              return (
-                <div key={letter}>
-                  <input
-                    type='checkbox'
-                    checked={this.state.validKeys.includes(letter.toLowerCase())}
-                    onChange={() => this.handleCheckboxChange(letter.toLowerCase())}
-                  />
-                  {letter}
-                </div>
-              );
-            })}
-            <button className='regen-button' onClick={this.generateSequence}>
-              Re-generate !
-            </button>
-          </div>
-        </div>
+        <div>
+          <div className={`text-progression ${this.state.focused ? 'active' : ''}`}>
+            <input
+              type='text'
+              className='text-input'
+              onKeyPress={(e) => this.handleInputChange(e)}
+              onFocus={() => this.focus()}
+              onBlur={() => this.blur()}
+            />
 
-        <div className='text-progression'>
-          {this.state.doneKeys.map((keyClass, i) => keyClass.element)}
-          {this.state.expectedKeys.map((keyClass) => keyClass.element)}
+            <p>
+              {this.state.doneKeys.map((keyClass) => keyClass.element)}
+              {this.state.expectedKeys.map((keyClass) => keyClass.element)}
+            </p>
+
+            <p>{this.getErrors()}%</p>
+          </div>
+
+          <Keyboard />
         </div>
-        <p type='text' className='text-input' contentEditable={true} suppressContentEditableWarning={true} onKeyPress={this.handleInputChange}></p>
-        <Keyboard />
       </div>
     );
   }
