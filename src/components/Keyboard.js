@@ -1,201 +1,83 @@
 import React from 'react';
 
+import Key from './Key';
+
 import './Keyboard.css';
 
 const Keyboard = () => {
   return (
     <div className='keyboard'>
       <div className='row'>
-        <div className='key'>
-          <span className='content'>²</span>
-        </div>
-        <div className='key'>
-          <span className='content'>1</span>
-        </div>
-        <div className='key'>
-          <span className='content'>2</span>
-        </div>
-        <div className='key'>
-          <span className='content'>3</span>
-        </div>
-        <div className='key'>
-          <span className='content'>4</span>
-        </div>
-        <div className='key'>
-          <span className='content'>5</span>
-        </div>
-        <div className='key'>
-          <span className='content'>6</span>
-        </div>
-        <div className='key'>
-          <span className='content'>7</span>
-        </div>
-        <div className='key'>
-          <span className='content'>8</span>
-        </div>
-        <div className='key'>
-          <span className='content'>9</span>
-        </div>
-        <div className='key'>
-          <span className='content'>0</span>
-        </div>
-        <div className='key'>
-          <span className='content'>{'('}</span>
-        </div>
-        <div className='key'>
-          <span className='content'>=</span>
-        </div>
-        <div className='key del'>
-          <span className='content'>Del</span>
-        </div>
+        <Key content='1' />
+        <Key content='2' />
+        <Key content='3' />
+        <Key content='4' />
+        <Key content='5' />
+        <Key content='6' />
+        <Key content='7' />
+        <Key content='8' />
+        <Key content='9' />
+        <Key content='0' />
+        <Key content=')' />
+        <Key content='=' />
+        <Key content='Del' type='del' />
       </div>
 
       <div className='row'>
-        <div className='key tab'>
-          <span className='content'>Tab</span>
-        </div>
-        <div className='key'>
-          <span className='content'>A</span>
-        </div>
-        <div className='key'>
-          <span className='content'>Z</span>
-        </div>
-        <div className='key'>
-          <span className='content'>E</span>
-        </div>
-        <div className='key'>
-          <span className='content'>R</span>
-        </div>
-        <div className='key'>
-          <span className='content'>T</span>
-        </div>
-        <div className='key'>
-          <span className='content'>Y</span>
-        </div>
-        <div className='key'>
-          <span className='content'>U</span>
-        </div>
-        <div className='key'>
-          <span className='content'>I</span>
-        </div>
-        <div className='key'>
-          <span className='content'>O</span>
-        </div>
-        <div className='key'>
-          <span className='content'>P</span>
-        </div>
-        <div className='key'>
-          <span className='content'>¨</span>
-        </div>
-        <div className='key'>
-          <span className='content'>$</span>
-        </div>
-        <div className='key enter-top'>
-          <span className='content'>Enter</span>
-        </div>
+        <Key content='Tab' type='tab' />
+        <Key content='a' />
+        <Key content='z' />
+        <Key content='e' />
+        <Key content='r' />
+        <Key content='t' />
+        <Key content='y' />
+        <Key content='u' />
+        <Key content='i' />
+        <Key content='o' />
+        <Key content='p' />
+        <Key content='^' />
+        <Key content='$' />
+        <Key content='*' />
       </div>
 
       <div className='row'>
-        <div className='key caps-lock'>
-          <span className='content'>Caps Lockssss</span>
-        </div>
-        <div className='key'>
-          <span className='content'>Q</span>
-        </div>
-        <div className='key'>
-          <span className='content'>S</span>
-        </div>
-        <div className='key'>
-          <span className='content'>D</span>
-        </div>
-        <div className='key'>
-          <span className='content'>F</span>
-        </div>
-        <div className='key'>
-          <span className='content'>G</span>
-        </div>
-        <div className='key'>
-          <span className='content'>H</span>
-        </div>
-        <div className='key'>
-          <span className='content'>J</span>
-        </div>
-        <div className='key'>
-          <span className='content'>K</span>
-        </div>
-        <div className='key'>
-          <span className='content'>L</span>
-        </div>
-        <div className='key'>
-          <span className='content'>M</span>
-        </div>
-        <div className='key'>
-          <span className='content'>%</span>
-        </div>
-        <div className='key'>
-          <span className='content'>*</span>
-        </div>
-        <div className='key enter-bottom'></div>
+        <Key content='Caps Lock' type='caps-lock' />
+        <Key content='q' />
+        <Key content='s' />
+        <Key content='d' />
+        <Key content='f' />
+        <Key content='g' />
+        <Key content='h' />
+        <Key content='j' />
+        <Key content='k' />
+        <Key content='l' />
+        <Key content='m' />
+        <Key content='ù' />
+        <Key content='Enter' type='enter' />
       </div>
 
       <div className='row'>
-        <div className='key l-shift'>
-          <span className='content'>Shift</span>
-        </div>
-        <div className='key'>
-          <span className='content'>&lt;</span>
-        </div>
-        <div className='key'>
-          <span className='content'>W</span>
-        </div>
-        <div className='key'>
-          <span className='content'>X</span>
-        </div>
-        <div className='key'>
-          <span className='content'>C</span>
-        </div>
-        <div className='key'>
-          <span className='content'>V</span>
-        </div>
-        <div className='key'>
-          <span className='content'>B</span>
-        </div>
-        <div className='key'>
-          <span className='content'>N</span>
-        </div>
-        <div className='key'>
-          <span className='content'>?</span>
-        </div>
-        <div className='key'>
-          <span className='content'>;</span>
-        </div>
-        <div className='key'>
-          <span className='content'>:</span>
-        </div>
-        <div className='key'>
-          <span className='content'>!</span>
-        </div>
-        <div className='key r-shift'>
-          <span className='content'>Shift</span>
-        </div>
+        <Key content='Shift' type='l-shift' />
+        <Key content='<' />
+        <Key content='w' />
+        <Key content='x' />
+        <Key content='c' />
+        <Key content='v' />
+        <Key content='b' />
+        <Key content='n' />
+        <Key content=',' />
+        <Key content=';' />
+        <Key content=':' />
+        <Key content='!' />
+        <Key content='Shift' type='r-shift' />
       </div>
 
       <div className='row'>
-        <div className='key ctrl'>
-          <span className='content'>Ctrl</span>
-        </div>
-        <div className='key alt'>
-          <span className='content'>Alt</span>
-        </div>
-        <div className='key space'>
-          <span className='content'>-</span>
-        </div>
-        <div className='key alt-gr'>
-          <span className='content'>Alt Gr</span>
-        </div>
-        <div className='key ctrl'>
-          <span className='content'>Ctrl</span>
-        </div>
+        <Key content='Ctrl' type='ctrl' />
+        <Key content='Alt' type='alt' />
+        <Key content='-' type='space' />
+        <Key content='Alt Gr' type='alt-gr' />
+        <Key content='Ctrl' type='ctrl' />
       </div>
     </div>
   );
