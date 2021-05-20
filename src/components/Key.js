@@ -4,6 +4,8 @@ const Key = ({ content = 'a', keyName = content, type = '' }) => {
   const [pressed, setPressed] = useState(false);
 
   const handleKeyDown = (event) => {
+    if (event.key === 'Alt') return;
+
     setPressed((curr) => (event.key.toLowerCase() === keyName.toLowerCase() ? true : curr));
   };
 

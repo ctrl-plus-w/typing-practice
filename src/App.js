@@ -71,7 +71,6 @@ const App = () => {
   const [failedKeys, setFailedKeys] = useState(0);
 
   useEffect(() => {
-    console.log('loads');
     generateSequence();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
