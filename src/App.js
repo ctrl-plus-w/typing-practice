@@ -9,6 +9,9 @@ import { v4 as uuid } from 'uuid';
 
 import { getRandomInt } from './utils';
 
+const ROW_SIZE = 4;
+const GROUP_AMOUNT = 4;
+
 class Key {
   constructor(key, visual = key) {
     this._visual = visual;
@@ -64,6 +67,9 @@ class Space extends Key {
 }
 
 const App = () => {
+  const [totalMs, setTotalMs] = useState(0);
+  const [tempMs, setTempMs] = useState(0);
+
   const [validKeys, setValidKeys] = useState(['q', 's', 'd', 'f', 'j', 'k', 'l', 'm']);
   const [focused, setFocused] = useState(false);
 
@@ -85,19 +91,16 @@ const App = () => {
   }, [validKeys]);
 
   const generateSequence = () => {
-    const rowSize = 4;
-    const groupAmount = 4;
-
     setDoneKeys([]);
     setExpectedKeys([]);
 
     let group = [];
 
-    for (let i = 0; i < groupAmount; i++) {
-      for (let i = 0; i < rowSize; i++)
+    for (let i = 0; i < GROUP_AMOUNT; i++) {
+      for (let i = 0; i < ROW_SIZE; i++)
         group.push(validKeys.length === 1 ? new Key(validKeys[0]) : new Key(validKeys[getRandomInt(validKeys.length - 1)]));
 
-      if (i !== groupAmount - 1) group.push(new Space());
+      if (i !== GROUP_AMOUNT - 1) group.push(new Space());
     }
 
     setExpectedKeys(group);
@@ -105,6 +108,17 @@ const App = () => {
 
   const handleInputChange = (event) => {
     event.preventDefault();
+
+    const LETTER_AMOUNT = GROUP_AMOUNT * ROW_SIZE + GROUP_AMOUNT - 1;
+
+    if (expectedKeys.length === LETTER_AMOUNT) {
+      setTempMs(Date.now());
+    }
+
+    if (expectedKeys.length === 1) {
+      setTotalMs((curr) => curr + Date.now() - tempMs);
+      setTotalKeys((curr) => curr + LETTER_AMOUNT);
+    }
 
     const firstExpectedEl = expectedKeys[0];
     const isValid = firstExpectedEl.key === event.key;
@@ -115,8 +129,6 @@ const App = () => {
     setDoneKeys((curr) => [...curr, firstExpectedEl]);
     setExpectedKeys((curr) => curr.slice(1));
 
-    setTotalKeys((curr) => curr + 1);
-
     !isValid && setFailedKeys((curr) => curr + 1);
 
     if (expectedKeys.length === 1) generateSequence();
@@ -124,7 +136,12 @@ const App = () => {
 
   const getErrors = () => {
     const errors = Math.round((failedKeys / totalKeys) * 100);
-    return isNaN(errors) ? 0 : errors;
+    return isNaN(errors) || !isFinite(errors) ? 0 : errors;
+  };
+
+  const getSpeed = () => {
+    const speed = totalKeys / (totalMs / 60000) / 5;
+    return isNaN(speed) || !isFinite(speed) ? 0 : speed.toFixed(0);
   };
 
   const focus = () => {
@@ -147,7 +164,10 @@ const App = () => {
               {expectedKeys.map((keyClass) => keyClass.element)}
             </p>
 
-            <p>{getErrors()}%</p>
+            <p>
+              <span>{getErrors()}%</span> &#160;
+              <span>{getSpeed()}wpm</span>
+            </p>
           </div>
 
           <Keyboard />
