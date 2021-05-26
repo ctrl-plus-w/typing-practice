@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import Keyboard from './components/Keyboard';
 
@@ -67,7 +67,7 @@ class Space extends Key {
 }
 
 const App = () => {
-  const [totalMs, setTotalMs] = useState(0);
+  const [speed, setSpeed] = useState(0);
   const [tempMs, setTempMs] = useState(0);
 
   const [validKeys, setValidKeys] = useState(['q', 's', 'd', 'f', 'j', 'k', 'l', 'm']);
@@ -78,19 +78,7 @@ const App = () => {
   const [totalKeys, setTotalKeys] = useState(0);
   const [failedKeys, setFailedKeys] = useState(0);
 
-  useEffect(() => {
-    generateSequence();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    generateSequence();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [validKeys]);
-
-  const generateSequence = () => {
+  const generateSequence = useCallback(() => {
     setDoneKeys([]);
     setExpectedKeys([]);
 
@@ -104,7 +92,11 @@ const App = () => {
     }
 
     setExpectedKeys(group);
-  };
+  }, [validKeys]);
+
+  useEffect(() => {
+    generateSequence();
+  }, [validKeys, generateSequence]);
 
   const handleInputChange = (event) => {
     event.preventDefault();
@@ -116,7 +108,7 @@ const App = () => {
     }
 
     if (expectedKeys.length === 1) {
-      setTotalMs((curr) => curr + Date.now() - tempMs);
+      setSpeed(getSpeed(LETTER_AMOUNT, Date.now() - tempMs));
       setTotalKeys((curr) => curr + LETTER_AMOUNT);
     }
 
@@ -139,8 +131,8 @@ const App = () => {
     return isNaN(errors) || !isFinite(errors) ? 0 : errors;
   };
 
-  const getSpeed = () => {
-    const speed = totalKeys / (totalMs / 60000) / 5;
+  const getSpeed = (letters, time) => {
+    const speed = letters / (time / 60000) / 5;
     return isNaN(speed) || !isFinite(speed) ? 0 : speed.toFixed(0);
   };
 
@@ -166,7 +158,7 @@ const App = () => {
 
             <p>
               <span>{getErrors()}%</span> &#160;
-              <span>{getSpeed()}wpm</span>
+              <span>{speed}wpm</span>
             </p>
           </div>
 

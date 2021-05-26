@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 
 import keysContext from '../context/keys';
 
@@ -7,7 +7,7 @@ const Key = ({ content = 'a', keyName = content, type = '' }) => {
 
   const [pressed, setPressed] = useState(false);
 
-  const handleClick = (event) => {
+  const handleClick = () => {
     setPressed(true);
     setTimeout(() => setPressed(false), 200);
 
@@ -15,15 +15,21 @@ const Key = ({ content = 'a', keyName = content, type = '' }) => {
     else setValidKeys((curr) => [...curr, content.toLowerCase()]);
   };
 
-  const handleKeyDown = (event) => {
-    if (event.key === 'Alt') return;
+  const handleKeyDown = useCallback(
+    (event) => {
+      if (event.key === 'Alt') return;
 
-    setPressed((curr) => (event.key.toLowerCase() === keyName.toLowerCase() ? true : curr));
-  };
+      setPressed((curr) => (event.key.toLowerCase() === keyName.toLowerCase() ? true : curr));
+    },
+    [keyName]
+  );
 
-  const handleKeyUp = (event) => {
-    setPressed((curr) => (event.key.toLowerCase() === keyName.toLowerCase() ? false : curr));
-  };
+  const handleKeyUp = useCallback(
+    (event) => {
+      setPressed((curr) => (event.key.toLowerCase() === keyName.toLowerCase() ? false : curr));
+    },
+    [keyName]
+  );
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
@@ -33,7 +39,7 @@ const Key = ({ content = 'a', keyName = content, type = '' }) => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
     };
-  }, []);
+  }, [handleKeyDown, handleKeyUp]);
 
   return (
     <div className={`key ${type} ${pressed ? 'down' : 'up'} ${!validKeys.includes(content.toLowerCase()) ? 'disabled' : ''}`} onClick={handleClick}>
